@@ -10,6 +10,7 @@ import {
   FormLabel,
   Flex,
   Box,
+  Input,
 } from '@chakra-ui/react'
 import {
   createQueryContext,
@@ -20,6 +21,9 @@ const qc = new QueryClient()
 
 const Home: NextPage = () => {
   const [showL2, setShowL2] = useState<boolean>(true)
+  const [address, setAddress] = useState(
+    '0x998b2f783b68d3d118b938172921e37e33821d71',
+  )
 
   return (
     <div>
@@ -33,9 +37,20 @@ const Home: NextPage = () => {
           })}
         >
           <Container maxW="container.xl">
-            <Flex mt={12} mb={6} alignItems="center">
-              <Box flex="1">
-                <Heading>Synthetix User Debt</Heading>
+            <Flex mt={12} mb={10} alignItems="center">
+              <Box>
+                <Heading fontWeight="thin" letterSpacing={1}>
+                  Synthetix Debt Overview
+                </Heading>
+              </Box>
+              <Box flex="1" px={10}>
+                <Input
+                  value={address}
+                  borderColor={address.length == 0 ? 'green.700' : undefined}
+                  onChange={(e) => setAddress(e.target.value)}
+                  width={412}
+                  placeholder="Enter a wallet address here..."
+                />
               </Box>
               <Box>
                 <FormControl display="flex" alignItems="center">
@@ -53,7 +68,7 @@ const Home: NextPage = () => {
                 </FormControl>
               </Box>
             </Flex>
-            <Chart />
+            <Chart address={address} />
           </Container>
         </SynthetixQueryContextProvider>
       </QueryClientProvider>

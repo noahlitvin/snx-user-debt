@@ -1,6 +1,5 @@
-import { useState } from "react";
 import useSynthetixQueries from "@synthetixio/queries";
-import { Flex, Input, Spinner, Button } from "@chakra-ui/react";
+import { Flex, Spinner, Button } from "@chakra-ui/react";
 import { DownloadIcon } from "@chakra-ui/icons";
 import {
   Chart as ChartJS,
@@ -105,10 +104,7 @@ export const options = {
   },
 };
 
-export default function Chart() {
-  const [address, setAddress] = useState(
-    "0x998b2f783b68d3d118b938172921e37e33821d71"
-  );
+export default function Chart({ address }) {
   const { useGetDebtTimeseries } = useSynthetixQueries();
   const getDebtTimeseriesQuery = useGetDebtTimeseries(address);
 
@@ -118,7 +114,7 @@ export default function Chart() {
     ),
     datasets: [
       {
-        label: "Debt Amount",
+        label: "Amount of Debt",
         data: getDebtTimeseriesQuery.data.map((d) => parseFloat(d.debtAmount)),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
@@ -130,7 +126,7 @@ export default function Chart() {
         fontColor: "#ffffff",
       },
       {
-        label: "Debt Percentage",
+        label: "Percentage of Total Debt",
         data: getDebtTimeseriesQuery.data.map((d) =>
           parseFloat(d.debtPercentage * 100)
         ),
@@ -153,16 +149,8 @@ export default function Chart() {
 
   return (
     <div>
-      <Input
-        width={412}
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-        placeholder="Enter wallet address here..."
-        mb={4}
-      />
-
       {getDebtTimeseriesQuery.isLoading ? (
-        <Flex py={20}>
+        <Flex py={28}>
           <Spinner mx="auto" />
         </Flex>
       ) : (
