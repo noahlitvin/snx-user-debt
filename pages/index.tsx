@@ -20,10 +20,8 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 const qc = new QueryClient()
 
 const Home: NextPage = () => {
-  const [showL2, setShowL2] = useState<boolean>(true)
-  const [address, setAddress] = useState(
-    '0x998b2f783b68d3d118b938172921e37e33821d71',
-  )
+  const [showL2, setShowL2] = useState<boolean>(false)
+  const [address, setAddress] = useState('')
 
   return (
     <div>
@@ -68,7 +66,7 @@ const Home: NextPage = () => {
                 </FormControl>
               </Box>
             </Flex>
-            <Chart address={address} />
+            <Chart address={address} network={showL2 ? 'L2' : 'L1'} />
           </Container>
         </SynthetixQueryContextProvider>
       </QueryClientProvider>

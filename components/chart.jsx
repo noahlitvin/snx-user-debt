@@ -1,5 +1,5 @@
 import useSynthetixQueries from "@synthetixio/queries";
-import { Flex, Spinner, Button } from "@chakra-ui/react";
+import { Flex, Spinner, Button, Text } from "@chakra-ui/react";
 import { DownloadIcon } from "@chakra-ui/icons";
 import {
   Chart as ChartJS,
@@ -104,7 +104,7 @@ export const options = {
   },
 };
 
-export default function Chart({ address }) {
+export default function Chart({ address, network }) {
   const { useGetDebtTimeseries } = useSynthetixQueries();
   const getDebtTimeseriesQuery = useGetDebtTimeseries(address);
 
@@ -153,7 +153,7 @@ export default function Chart({ address }) {
         <Flex py={28}>
           <Spinner mx="auto" />
         </Flex>
-      ) : (
+      ) : data && data.labels.length ? (
         <div>
           <Line options={options} data={data} />
           <Flex style={{ transform: "translateY(-30px)" }}>
@@ -165,6 +165,12 @@ export default function Chart({ address }) {
             </Button>
           </Flex>
         </div>
+      ) : (
+        <Text fontSize="xl" py={28} align="center">
+          {address.length
+            ? `No data available for this address on ${network}`
+            : "Enter an address above"}
+        </Text>
       )}
     </div>
   );
