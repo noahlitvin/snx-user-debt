@@ -32,7 +32,7 @@ const Home: NextPage = () => {
             networkId: showL2 ? 10 : 1,
           })}
         >
-          <Container>
+          <Container maxW="container.xl">
             <Flex mt={12} mb={6} alignItems="center">
               <Box flex="1">
                 <Heading>Synthetix User Debt</Heading>

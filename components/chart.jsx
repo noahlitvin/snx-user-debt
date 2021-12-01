@@ -74,6 +74,12 @@ export const options = {
     decimation: {
       enabled: true,
     },
+    legend: {
+      position: "bottom",
+      labels: {
+        padding: 25,
+      },
+    },
     tooltip: {
       enabled: true,
       callbacks: {
@@ -148,6 +154,7 @@ export default function Chart() {
   return (
     <div>
       <Input
+        width={412}
         value={address}
         onChange={(e) => setAddress(e.target.value)}
         placeholder="Enter wallet address here..."
@@ -161,7 +168,7 @@ export default function Chart() {
       ) : (
         <div>
           <Line options={options} data={data} />
-          <Flex my={4}>
+          <Flex style={{ transform: "translateY(-30px)" }}>
             <Button ml="auto" size="xs" fontWeight="medium">
               <CSVLink {...csvReport}>
                 <DownloadIcon style={{ transform: "translateY(-1px)" }} />{" "}
