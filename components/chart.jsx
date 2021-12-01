@@ -65,7 +65,7 @@ export const options = {
       ticks: {
         color: "#ffffff",
         callback: function (value, index, values) {
-          return value.toFixed(4) + "%";
+          return value.toFixed(5) + "%";
         },
       },
     },
@@ -73,6 +73,28 @@ export const options = {
   plugins: {
     decimation: {
       enabled: true,
+    },
+    tooltip: {
+      enabled: true,
+      callbacks: {
+        label: (context) => {
+          let label = context.dataset.label || "";
+
+          if (label) {
+            label += ": ";
+          }
+
+          if (context.dataset.label == "Debt Amount") {
+            label += new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+            }).format(context.parsed.y);
+          } else {
+            label += context.parsed.y.toFixed(5) + "%";
+          }
+          return label;
+        },
+      },
     },
   },
 };
