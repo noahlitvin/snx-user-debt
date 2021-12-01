@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useSynthetixQueries from "@synthetixio/queries";
-import { Flex, Input, Spinner } from "@chakra-ui/react";
+import { Flex, Input, Spinner, Button } from "@chakra-ui/react";
+import { DownloadIcon } from "@chakra-ui/icons";
 import {
   Chart as ChartJS,
   LinearScale,
@@ -13,6 +14,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import "chartjs-adapter-date-fns";
+import { CSVLink } from "react-csv";
 
 ChartJS.register(
   TimeSeriesScale,
@@ -101,6 +103,12 @@ export default function Chart() {
     ],
   };
 
+  const csvReport = {
+    data: getDebtTimeseriesQuery.data,
+    //headers: headers,
+    filename: address + ".csv",
+  };
+
   return (
     <div>
       <Input
@@ -111,12 +119,20 @@ export default function Chart() {
       />
 
       {getDebtTimeseriesQuery.isLoading ? (
-        <Flex py={12}>
+        <Flex py={20}>
           <Spinner mx="auto" />
         </Flex>
       ) : (
         <div>
           <Line options={options} data={data} />
+          <Flex my={4}>
+            <Button ml="auto" size="xs" fontWeight="medium">
+              <CSVLink {...csvReport}>
+                <DownloadIcon style={{ transform: "translateY(-1px)" }} />{" "}
+                Export to CSV
+              </CSVLink>
+            </Button>
+          </Flex>
         </div>
       )}
     </div>
