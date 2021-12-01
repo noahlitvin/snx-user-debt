@@ -29,7 +29,8 @@ ChartJS.register(
 export const options = {
   responsive: true,
   animation: false,
-  //parsing: false,
+  parsing: false,
+  normalized: true,
   interaction: {
     mode: "index",
     intersect: false,
@@ -84,19 +85,27 @@ export default function Chart() {
     datasets: [
       {
         label: "Debt Amount",
-        data: getDebtTimeseriesQuery.data.map((d) => d.debtAmount),
+        data: getDebtTimeseriesQuery.data.map((d) => parseFloat(d.debtAmount)),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         yAxisID: "y",
+        parsing: {
+          yAxisKey: "y",
+        },
         pointRadius: 0,
         fontColor: "#ffffff",
       },
       {
         label: "Debt Percentage",
-        data: getDebtTimeseriesQuery.data.map((d) => d.debtPercentage),
+        data: getDebtTimeseriesQuery.data.map((d) =>
+          parseFloat(d.debtPercentage)
+        ),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
         yAxisID: "y1",
+        parsing: {
+          yAxisKey: "y1",
+        },
         pointRadius: 0,
         fontColor: "#ffffff",
       },
@@ -105,7 +114,6 @@ export default function Chart() {
 
   const csvReport = {
     data: getDebtTimeseriesQuery.data,
-    //headers: headers,
     filename: address + ".csv",
   };
 
