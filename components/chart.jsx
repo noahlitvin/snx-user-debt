@@ -53,6 +53,9 @@ export const options = {
       position: "left",
       ticks: {
         color: "#ffffff",
+        callback: function (value, index, values) {
+          return "$" + value.toLocaleString();
+        },
       },
     },
     y1: {
@@ -61,6 +64,9 @@ export const options = {
       position: "right",
       ticks: {
         color: "#ffffff",
+        callback: function (value, index, values) {
+          return value.toFixed(4) + "%";
+        },
       },
     },
   },
@@ -98,7 +104,7 @@ export default function Chart() {
       {
         label: "Debt Percentage",
         data: getDebtTimeseriesQuery.data.map((d) =>
-          parseFloat(d.debtPercentage)
+          parseFloat(d.debtPercentage * 100)
         ),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
