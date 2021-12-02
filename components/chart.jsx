@@ -45,6 +45,9 @@ export const options = {
         autoSkip: true,
         color: "#ffffff",
       },
+      grid: {
+        color: "rgba(0,0,0,0.33)",
+      },
     },
     y: {
       type: "linear",
@@ -56,6 +59,9 @@ export const options = {
           return "$" + value.toLocaleString();
         },
       },
+      grid: {
+        color: "rgba(0,0,0,0.33)",
+      },
     },
     y1: {
       type: "linear",
@@ -66,6 +72,9 @@ export const options = {
         callback: function (value, index, values) {
           return value.toFixed(5) + "%";
         },
+      },
+      grid: {
+        color: "rgba(0,0,0,0.33)",
       },
     },
   },
