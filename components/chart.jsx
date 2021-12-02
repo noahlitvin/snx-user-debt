@@ -89,7 +89,7 @@ export const options = {
             label += ": ";
           }
 
-          if (context.dataset.label == "Debt Amount") {
+          if (context.dataset.label == "Amount of Debt") {
             label += new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: "USD",
