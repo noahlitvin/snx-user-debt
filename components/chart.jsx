@@ -124,6 +124,7 @@ export default function Chart({ address, network }) {
         },
         pointRadius: 0,
         fontColor: "#ffffff",
+        borderWidth: 0.75,
       },
       {
         label: "Percentage of Total Debt",
@@ -138,6 +139,7 @@ export default function Chart({ address, network }) {
         },
         pointRadius: 0,
         fontColor: "#ffffff",
+        borderWidth: 0.75,
       },
     ],
   };
